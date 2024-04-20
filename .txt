@@ -1,0 +1,201 @@
+//
+// Created by 白白 on 2024/4/19.
+//
+
+#include "Time.h"
+#include <string>
+
+using namespace std;
+
+Time::Time() {
+    hour = 0;
+    min = 0;
+    sec = 0;
+}
+Time::Time(int hh, int mm, int ss) {
+    hour = hh;
+    min = mm;
+    sec = ss;
+}
+
+
+int Time::GetHour() const { return hour; }
+int Time::GetMin() const { return min; }
+
+int Time::GetSec() const { return sec; }
+
+void Time::SetHour(int hh) { hour = hh; }
+void Time::SetMin(int mm) { min = mm; }
+void Time::SetSec(int ss) { sec = ss; }
+void Time::SetTime(int hh, int mm, int ss) {
+    hour = hh;
+    min = mm;
+    sec = ss;
+}
+
+void Time::printTime() { cout << hour << ":" << min << ":" << sec << endl; }
+
+bool Time::operator==(const Time &otherTime) const {
+    if (hour == otherTime.hour && min == otherTime.min && sec == otherTime.sec)
+        return true;
+    else
+        return false;
+}
+
+istream &operator>>(istream &input, Time &T) {
+    string time, sHH, sMM, sSS;
+    int position, hh, mm, ss;
+
+    getline(input, sHH, ':');
+    getline(input, sMM, ':');
+    getline(input, sSS, '\n');
+
+    hh = stoi(sHH);
+    mm = stoi(sMM);
+    ss = stoi(sSS);
+
+    T.SetHour(hh);
+    T.SetMin(mm);
+    T.SetSec(ss);
+
+    return input;
+}
+ostream &operator<<(ostream &os, const Time &T) {
+    os << T.GetHour() << ":" << T.GetMin() << ":" << T.GetSec();
+    return os;
+}
+
+#ifndef FINALPROJECT_TIME_H
+#define FINALPROJECT_TIME_H
+
+
+#include <iostream>
+
+using namespace std;
+
+class Time {
+public:
+
+    Time();
+    Time(int hh, int mm, int ss);
+
+    int GetHour() const;
+    int GetMin() const;
+    int GetSec() const;
+
+    void SetHour(int hh);
+    void SetMin(int mm);
+    void SetSec(int ss);
+    void SetTime(int hh, int mm, int ss);
+
+    void printTime();
+
+    bool operator==(const Time &otherTime) const;
+
+private:
+    int hour;
+    int min;
+    int sec;
+};
+
+ostream &operator<<(ostream &os, const Time &T);
+istream &operator>>(istream &input, Time &T);
+
+
+#endif //FINALPROJECT_TIME_H
+#ifndef FINALPROJECT_DATE_H
+#define FINALPROJECT_DATE_H
+
+
+#include <iostream>
+
+using namespace std;
+
+class Date {
+public:
+    Date();
+    Date(int MM, int dd, int yyyy);
+
+    int getMonth() const;
+    int getDay() const;
+    int getYear() const;
+
+    void SetMonth(int MM);
+    void SetDay(int dd);
+    void SetYear(int yyyy);
+    void SetDate(int MM, int dd, int yyyy);
+
+    void printDate();
+
+    bool operator==(const Date &otherDate) const;
+
+private:
+    int month;
+    int day;
+    int year;
+};
+
+ostream &operator<<(ostream &os, const Date &D);
+istream &operator>>(istream &input, Date &D);
+
+
+#endif //FINALPROJECT_DATE_H
+#include "Date.h"
+#include <string>
+
+using namespace std;
+
+Date::Date() {
+    month = 1;
+    day = 1;
+    year = 2000;
+}
+Date::Date(int MM, int dd, int yyyy) {
+    month = MM;
+    day = dd;
+    year = yyyy;
+}
+
+int Date::getMonth() const { return month; }
+int Date::getDay() const { return day; }
+int Date::getYear() const { return year; }
+
+void Date::SetMonth(int MM) { month = MM; }
+void Date::SetDay(int dd) { day = dd; }
+void Date::SetYear(int yyyy) { year = yyyy; }
+void Date::SetDate(int MM, int dd, int yyyy) {
+    month = MM;
+    day = dd;
+    year = yyyy;
+}
+
+void Date::printDate() { cout << month << "/" << day << "/" << year << endl; }
+
+bool Date::operator==(const Date &otherDate) const {
+    if (month == otherDate.month && day == otherDate.day &&
+        year == otherDate.year)
+        return true;
+    else
+        return false;
+}
+
+istream &operator>>(istream &input, Date &D) {
+    string stringMM, stringdd, stringyyyy;
+    int MM, dd, yyyy;
+
+    getline(input, stringMM, '/');
+    getline(input, stringdd, '/');
+    getline(input, stringyyyy, '\n');
+
+    MM = stoi(stringMM);
+    dd = stoi(stringdd);
+    yyyy = stoi(stringyyyy);
+
+    D.SetDate(MM, dd, yyyy);
+
+    return input;
+}
+ostream &operator<<(ostream &os, const Date &D) {
+    os << D.getMonth() << "/" << D.getDay() << "/" << D.getYear();
+    return os;
+}
